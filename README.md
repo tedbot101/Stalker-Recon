@@ -12,6 +12,18 @@ This script is designed for enumerating SSL/TLS certificates associated with a s
 - **Proxy Support**: Supports HTTP proxies for requests.
 - **Debug Mode**: Logs detailed information for troubleshooting.
 
+## Services Used for Enumeration
+
+The script utilizes the following services for certificate enumeration:
+
+1. **Censys**: Provides data on hosts and certificates.
+2. **CertSpotter**: Monitors certificate transparency logs for issued certificates.
+3. **Crt.sh**: A public database for searching certificates in certificate transparency logs.
+4. **Digitorus**: Offers subdomain enumeration services.
+5. **Facebook Certificate Transparency**: Provides information on certificates used by Facebook.
+6. **VirusTotal**: Analyzes domains and URLs for security threats, including SSL certificate data.
+7. **RiskIQ PassiveTotal**: Provides passive DNS and certificate data.
+
 ## Installation
 
 1. **Clone the repository**:
