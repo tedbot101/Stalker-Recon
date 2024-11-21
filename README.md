@@ -11,6 +11,7 @@ This script is designed for enumerating end point using certificates associated 
 - **Custom User-Agent**: Allows users to specify a custom User-Agent string for requests.
 - **Proxy Support**: Supports HTTP proxies for requests.
 - **Debug Mode**: Logs detailed information for troubleshooting.
+- **API Rate Limit Handling**: Manages API rate limits and rotates between multiple API keys to maximize request capacity.
 
 ## Services Used for Enumeration
 
