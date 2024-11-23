@@ -4,20 +4,25 @@ import argparse
 import time
 import logging
 import httpx
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(filename='api_errors.log', level=logging.ERROR)
 
 # Define your API keys and endpoints
 API_KEYS = {
-    'censys': 'YOUR_CENSYS_API_KEY',
-    'certspotter': 'YOUR_CERTSPOTTER_API_KEY',
-    'certcentral': 'YOUR_CERTCENTRAL_API_KEY',
-    'crtsh': 'YOUR_CRTSH_API_KEY',
-    'digitorus': 'YOUR_DIGITORUS_API_KEY',
-    'facebookct': 'YOUR_FACEBOOK_CT_API_KEY',
-    'virustotal': 'YOUR_VIRUSTOTAL_API_KEY',
-    'passivetotal': 'YOUR_PASSIVETOTAL_API_KEY',
+    'censys': os.getenv('CENSYS_API_KEYS').split(','),
+    'certspotter': os.getenv('CERTSPOTTER_API_KEYS').split(','),
+    'certcentral': os.getenv('CERTCENTRAL_API_KEYS').split(','),
+    'crtsh': os.getenv('CRTSH_API_KEYS').split(','),
+    'digitorus': os.getenv('DIGITORUS_API_KEYS').split(','),
+    'facebookct': os.getenv('FACEBOOK_CT_API_KEYS').split(','),
+    'virustotal': os.getenv('VIRUSTOTAL_API_KEYS').split(','),
+    'passivetotal': os.getenv('PASSIVETOTAL_API_KEYS').split(','),
 }
 
 # Rate limits (requests per minute)
@@ -31,6 +36,13 @@ RATE_LIMITS = {
 
 # Track requests made
 request_count = {key: 0 for key in RATE_LIMITS.keys()}
+api_key_index = {key: 0 for key in API_KEYS.keys()}
+
+def get_next_api_key(service):
+    keys = API_KEYS[service]
+    index = api_key_index[service]
+    api_key_index[service] = (index + 1) % len(keys)
+    return keys[index]
 
 def check_rate_limit(service):
     if request_count[service] >= RATE_LIMITS[service]:
@@ -40,8 +52,9 @@ def check_rate_limit(service):
 
 def check_response(response, service):
     if response.status_code == 429:
-        print(f"Rate limit exceeded for {service}. Waiting before retrying...")
-        time.sleep(60)
+        retry_after = int(response.headers.get('Retry-After', 60))
+        print(f"Rate limit exceeded for {service}. Retrying after {retry_after} seconds.")
+        time.sleep(retry_after)
         return None
     elif response.status_code != 200:
         error_message = f"Error from {service}: Received status code {response.status_code} - {response.text}"
@@ -70,7 +83,9 @@ def query_with_retry(url, headers, params, service, retries=3):
                 "status_code": response.status_code
             }
             log_debug(debug_info)
-            return check_response(response, service)
+            result = check_response(response, service)
+            if result is not None:
+                return result
         except requests.exceptions.RequestException as e:
             error_message = f"Request failed for {service}: {e}"
             print(error_message)
@@ -91,14 +106,15 @@ def query_api(service, domain, user_agent):
     }
     
     headers = {'User-Agent': user_agent}
+    api_key = get_next_api_key(service)
     if service == 'censys':
-        headers['Authorization'] = f'Basic {API_KEYS["censys"]}'
+        headers['Authorization'] = f'Basic {api_key}'
     elif service == 'digitorus':
-        headers['Authorization'] = f'Bearer {API_KEYS["digitorus"]}'
+        headers['Authorization'] = f'Bearer {api_key}'
     elif service == 'virustotal':
-        headers['x-apikey'] = API_KEYS['virustotal']
+        headers['x-apikey'] = api_key
     elif service == 'passivetotal':
-        headers['Authorization'] = f'ApiKey {API_KEYS["passivetotal"]}'
+        headers['Authorization'] = f'ApiKey {api_key}'
         headers['Content-Type'] = 'application/json'
 
     return query_with_retry(url_map[service], headers, {'domain': domain}, service)
@@ -161,13 +177,15 @@ def main(domain, output_file, output_format, debug, user_agent, live_check_flag,
         print("Debug information saved to debug.txt.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Enumerate subdomains and endpoints.')
+    parser = argparse.ArgumentParser(
+        description='Enumerate subdomains and endpoints. Some options are only allowed during the liveliness check.'
+    )
     parser.add_argument('-d', '--domain', required=True, help='Target domain to enumerate')
     parser.add_argument('-o', '--output', required=True, help='Output file name')
     parser.add_argument('-f', '--format', required=True, choices=['1', '2'], help='Output format: 1 or 2')
     parser.add_argument('--debug', action='store_true', help='Enable debug mode to log detailed information')
     parser.add_argument('--user-agent', default='Mozilla/5.0', help='Custom User-Agent string for requests')
-    parser.add_argument('--live-check', action='store_true', help='Perform a liveliness check on found targets')
+    parser.add_argument('--live-check', action='store_true', help='Perform a liveliness check on found targets. Requires --port and --proxy options.')
     parser.add_argument('--proxy', help='Proxy to use for HTTP requests (e.g., http://127.0.0.1:8080)')
     parser.add_argument('--port', type=str, help='Additional ports to check (comma-separated)', default='')
 
