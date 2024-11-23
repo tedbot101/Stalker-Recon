@@ -1,8 +1,10 @@
 import requests
 import json
 import argparse
+from datetime import datetime
 
 def get_subdomains_crtsh(domain):
+    print("Fetching data from crt.sh...")
     url = f"https://crt.sh/?q=%25.{domain}&output=json"
     response = requests.get(url)
     
@@ -21,9 +23,11 @@ def get_subdomains_crtsh(domain):
         print(f"Error parsing JSON response: {e}")
         return []
 
+    print(f"Found {len(subdomains)} subdomains from crt.sh.")
     return subdomains
 
 def get_subdomains_certspotter(domain):
+    print("Fetching data from CertSpotter...")
     url = f"https://api.certspotter.com/v1/issuances?domain={domain}&include_subdomains=true&expand=dns_names"
     response = requests.get(url)
     
@@ -41,12 +45,20 @@ def get_subdomains_certspotter(domain):
         print(f"Error parsing JSON response: {e}")
         return []
 
+    print(f"Found {len(subdomains)} subdomains from CertSpotter.")
     return subdomains
 
-def save_to_file(filename, subdomains):
+def save_to_file(filename, crtsh_subdomains, certspotter_subdomains):
+    data = {
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "subdomains": {
+            "crtsh": sorted(crtsh_subdomains),
+            "certspotter": sorted(certspotter_subdomains)
+        }
+    }
+    
     with open(filename, 'w') as f:
-        for subdomain in sorted(subdomains):
-            f.write(subdomain + '\n')
+        json.dump(data, f, indent=4)
 
 def main():
     parser = argparse.ArgumentParser(description="Enumerate subdomains using crt.sh and CertSpotter")
@@ -56,11 +68,9 @@ def main():
     subdomains_crtsh = get_subdomains_crtsh(args.domain)
     subdomains_certspotter = get_subdomains_certspotter(args.domain)
 
-    all_subdomains = subdomains_crtsh.union(subdomains_certspotter)
-
-    if all_subdomains:
-        save_to_file('all_subdomains.txt', all_subdomains)
-        print(f"Subdomains found for {args.domain} have been saved to all_subdomains.txt")
+    if subdomains_crtsh or subdomains_certspotter:
+        save_to_file('all_subdomains.json', subdomains_crtsh, subdomains_certspotter)
+        print(f"Subdomains found for {args.domain} have been saved to all_subdomains.json")
     else:
         print(f"No subdomains found for {args.domain}.")
 

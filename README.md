@@ -17,20 +17,15 @@ This script is designed for enumerating end point using certificates associated 
 
 The script utilizes the following services for certificate enumeration:
 
-1. **Censys**: Provides data on hosts and certificates.
-2. **CertSpotter**: Monitors certificate transparency logs for issued certificates.
-3. **Crt.sh**: A public database for searching certificates in certificate transparency logs.
-4. **Digitorus**: Offers subdomain enumeration services.
-5. **Facebook Certificate Transparency**: Provides information on certificates used by Facebook.
-6. **VirusTotal**: Analyzes domains and URLs for security threats, including SSL certificate data.
-7. **RiskIQ PassiveTotal**: Provides passive DNS and certificate data.
+1. **CertSpotter**: Monitors certificate transparency logs for issued certificates.
+2. **Crt.sh**: A public database for searching certificates in certificate transparency logs.
 
 ## Installation
 
 1. **Clone the repository**:
 ```bash
-   git clone https://github.com/yourusername/certificate-enumeration-script.git
-   cd certificate-enumeration-script
+   git https://github.com/tedbot101/Stalker-Recon.git
+   cd Stalker-Recon
 ```
 
 2. **Install dependencies**:
