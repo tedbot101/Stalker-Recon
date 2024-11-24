@@ -1,0 +1,77 @@
+[
+    {
+        "url": "http://printwsvc.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://insights.pp.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://searg.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://server6.pp.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://www.studentcentral.london:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://nagios.pp.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://www.mklab.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://www.newpolcom.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://ma.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://ganglia.pp.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://personal.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://studentcentral.london:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://mklab.ph.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://insights-twiki.pp.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    },
+    {
+        "url": "http://www.ma.rhul.ac.uk:80",
+        "status": "live",
+        "status_code": 200
+    }
+]

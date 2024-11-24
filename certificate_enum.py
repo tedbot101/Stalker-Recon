@@ -1,194 +1,151 @@
 import requests
 import json
 import argparse
-import time
-import logging
+from datetime import datetime
 import httpx
-from dotenv import load_dotenv
-import os
+import asyncio
+import logging
+from tenacity import retry, stop_after_attempt, wait_exponential
 
-# Load environment variables from .env file
-load_dotenv()
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Set up logging
-logging.basicConfig(filename='api_errors.log', level=logging.ERROR)
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+def get_subdomains_crtsh(domain):
+    logging.info("Fetching data from crt.sh...")
+    url = f"https://crt.sh/?q=%25.{domain}&output=json"
+    response = requests.get(url)
+    
+    if response.status_code != 200:
+        logging.error(f"Error fetching data from crt.sh: {response.status_code}")
+        return []
 
-# Define your API keys and endpoints
-API_KEYS = {
-    'censys': os.getenv('CENSYS_API_KEYS').split(','),
-    'certspotter': os.getenv('CERTSPOTTER_API_KEYS').split(','),
-    'certcentral': os.getenv('CERTCENTRAL_API_KEYS').split(','),
-    'crtsh': os.getenv('CRTSH_API_KEYS').split(','),
-    'digitorus': os.getenv('DIGITORUS_API_KEYS').split(','),
-    'facebookct': os.getenv('FACEBOOK_CT_API_KEYS').split(','),
-    'virustotal': os.getenv('VIRUSTOTAL_API_KEYS').split(','),
-    'passivetotal': os.getenv('PASSIVETOTAL_API_KEYS').split(','),
-}
+    subdomains = set()
+    try:
+        certs = json.loads(response.text)
+        for cert in certs:
+            name_value = cert.get('name_value')
+            if name_value:
+                subdomains.update(name_value.split('\n'))
+    except json.JSONDecodeError as e:
+        logging.error(f"Error parsing JSON response: {e}")
+        return []
 
-# Rate limits (requests per minute)
-RATE_LIMITS = {
-    'censys': 10,
-    'certspotter': 75,
-    'certcentral': 1000 / 3,
-    'virustotal': 4,
-    'passivetotal': 100,
-}
+    logging.info(f"Found {len(subdomains)} subdomains from crt.sh.")
+    return subdomains
 
-# Track requests made
-request_count = {key: 0 for key in RATE_LIMITS.keys()}
-api_key_index = {key: 0 for key in API_KEYS.keys()}
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+def get_subdomains_certspotter(domain):
+    logging.info("Fetching data from CertSpotter...")
+    url = f"https://api.certspotter.com/v1/issuances?domain={domain}&include_subdomains=true&expand=dns_names"
+    response = requests.get(url)
+    
+    if response.status_code != 200:
+        logging.error(f"Error fetching data from CertSpotter: {response.status_code}")
+        return []
 
-def get_next_api_key(service):
-    keys = API_KEYS[service]
-    index = api_key_index[service]
-    api_key_index[service] = (index + 1) % len(keys)
-    return keys[index]
+    subdomains = set()
+    try:
+        certs = json.loads(response.text)
+        for cert in certs:
+            dns_names = cert.get('dns_names', [])
+            subdomains.update(dns_names)
+    except json.JSONDecodeError as e:
+        logging.error(f"Error parsing JSON response: {e}")
+        return []
 
-def check_rate_limit(service):
-    if request_count[service] >= RATE_LIMITS[service]:
-        print(f"Rate limit reached for {service}. Waiting for reset...")
-        time.sleep(60)
-        request_count[service] = 0
+    logging.info(f"Found {len(subdomains)} subdomains from CertSpotter.")
+    return subdomains
 
-def check_response(response, service):
-    if response.status_code == 429:
-        retry_after = int(response.headers.get('Retry-After', 60))
-        print(f"Rate limit exceeded for {service}. Retrying after {retry_after} seconds.")
-        time.sleep(retry_after)
-        return None
-    elif response.status_code != 200:
-        error_message = f"Error from {service}: Received status code {response.status_code} - {response.text}"
-        print(error_message)
-        log_error(error_message)
-        return None
-    return response.json()
+def combine_and_clean_subdomains(crtsh_subdomains, certspotter_subdomains):
+    logging.info("Combining and cleaning subdomains...")
+    combined_subdomains = crtsh_subdomains.union(certspotter_subdomains)
+    
+    # Remove wildcard domains and duplicates
+    cleaned_subdomains = {sub for sub in combined_subdomains if '*' not in sub}
+    
+    logging.info(f"Total unique subdomains after cleaning: {len(cleaned_subdomains)}")
+    return cleaned_subdomains
 
-def log_error(message):
-    logging.error(message)
-
-def log_debug(debug_info):
-    with open('debug.txt', 'a') as debug_file:
-        json.dump(debug_info, debug_file, indent=4)
-        debug_file.write('\n')
-
-def query_with_retry(url, headers, params, service, retries=3):
-    for attempt in range(retries):
-        try:
-            response = requests.get(url, headers=headers, params=params)
-            debug_info = {
-                "attempt": attempt + 1,
-                "service": service,
-                "url": url,
-                "params": params,
-                "status_code": response.status_code
-            }
-            log_debug(debug_info)
-            result = check_response(response, service)
-            if result is not None:
-                return result
-        except requests.exceptions.RequestException as e:
-            error_message = f"Request failed for {service}: {e}"
-            print(error_message)
-            log_error(error_message)
-            time.sleep(2)
-    return None
-
-def query_api(service, domain, user_agent):
-    check_rate_limit(service)
-    url_map = {
-        'censys': f'https://censys.io/api/v1/search/ipv4',
-        'certspotter': f'https://api.certspotter.com/v1/issuances',
-        'crtsh': f'https://crt.sh/?q={domain}&output=json',
-        'digitorus': f'https://api.digitorus.com/v1/subdomains/{domain}',
-        'facebookct': f'https://facebook.com/certificate-transparency/api/v1/entries',
-        'virustotal': f'https://www.virustotal.com/api/v3/domains/{domain}',
-        'passivetotal': f'https://api.passivetotal.org/v2/enrichment'
+def save_to_file(filename, crtsh_subdomains, certspotter_subdomains):
+    data = {
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "subdomains": {
+            "crtsh": sorted(crtsh_subdomains),
+            "certspotter": sorted(certspotter_subdomains)
+        }
     }
     
-    headers = {'User-Agent': user_agent}
-    api_key = get_next_api_key(service)
-    if service == 'censys':
-        headers['Authorization'] = f'Basic {api_key}'
-    elif service == 'digitorus':
-        headers['Authorization'] = f'Bearer {api_key}'
-    elif service == 'virustotal':
-        headers['x-apikey'] = api_key
-    elif service == 'passivetotal':
-        headers['Authorization'] = f'ApiKey {api_key}'
-        headers['Content-Type'] = 'application/json'
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4)
 
-    return query_with_retry(url_map[service], headers, {'domain': domain}, service)
-
-def extract_endpoints(data):
-    endpoints = set()
-    if isinstance(data, list):
-        for item in data:
-            endpoints.add(item.get('name'))
-    elif isinstance(data, dict):
-        endpoints.add(data.get('name'))
-    return endpoints
-
-def live_check(targets, ports, user_agent, proxy):
-    results = {}
-    for target in targets:
-        results[target] = {}
+async def check_liveliness(subdomain, ports, rate_limit, proxy, user_agent):
+    results = []
+    async with httpx.AsyncClient(proxies=proxy, headers={"User-Agent": user_agent}) as client:
         for port in ports:
-            url = f"http://{target}:{port}"
+            url = f"http://{subdomain}:{port}"
             try:
-                response = httpx.get(url, headers={'User-Agent': user_agent}, proxies=proxy, timeout=5)
-                results[target][port] = {
-                    "status_code": response.status_code,
-                    "title": response.html.title if response.status_code == 200 else None
-                }
-            except Exception as e:
-                results[target][port] = {"error": str(e)}
+                response = await client.get(url)
+                if response.status_code == 200:
+                    results.append({"url": url, "status": "live", "status_code": response.status_code})
+                    logging.info(f"{url} is live with status code {response.status_code}")
+                else:
+                    results.append({"url": url, "status": f"status code {response.status_code}", "status_code": response.status_code})
+                    logging.warning(f"{url} returned status code {response.status_code}")
+            except httpx.RequestError as exc:
+                results.append({"url": url, "status": f"could not be reached: {exc}", "status_code": None})
+                logging.error(f"{url} could not be reached: {exc}")
+            await asyncio.sleep(1 / rate_limit)
     return results
 
-def main(domain, output_file, output_format, debug, user_agent, live_check_flag, proxy, additional_ports):
-    default_ports = [80, 443, 8443]
-    ports_to_check = default_ports + additional_ports
+async def main():
+    parser = argparse.ArgumentParser(description="Enumerate subdomains using crt.sh and CertSpotter")
+    parser.add_argument('-d', '--domain', required=True, help='Domain to enumerate subdomains for')
+    parser.add_argument('--ports', nargs='+', type=int, default=[8443, 443, 80], 
+                        help='Ports to check for liveliness (default: 8443, 443, 80)')
+    parser.add_argument('--rate-limit', type=float, default=3.0, 
+                        help='Rate limit for liveliness checks (requests per second, default: 3)')
+    parser.add_argument('--proxy', type=str, default=None, 
+                        help='Proxy to use for liveliness checks (e.g., http://yourproxy:port)')
+    parser.add_argument('--user-agent', type=str, 
+                        default="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0", 
+                        help='User-Agent to use for liveliness checks (default: Mozilla/5.0...)')
+    parser.add_argument('--debug', action='store_true', help='Save all results including unreachable hosts')
+    
+    args = parser.parse_args()
 
-    results = {
-        "found": {},
-        "endpoints": set()
-    }
+    logging.info("Starting subdomain enumeration...\n")
+    
+    subdomains_crtsh = get_subdomains_crtsh(args.domain)
+    subdomains_certspotter = get_subdomains_certspotter(args.domain)
 
-    for service in ['censys', 'certspotter', 'crtsh', 'digitorus', 'facebookct', 'virustotal', 'passivetotal']:
-        data = query_api(service, domain, user_agent)
-        if data is None:
-            print(f"Failed to retrieve data from {service}. Check logs for details.")
-        else:
-            results["found"][service] = data
-            results["endpoints"].update(extract_endpoints(data))
-
-    if live_check_flag:
-        targets = list(results["endpoints"])
-        live_results = live_check(targets, ports_to_check, user_agent, proxy)
-        results["live_check"] = live_results
-
-    output_data = results if output_format == "1" else {"endpoints": list(results["endpoints"])}
-
-    with open(output_file, 'w') as f:
-        json.dump(output_data, f, indent=4)
-    print(f"Results saved to {output_file}")
-
-    if debug:
-        log_debug({"results": output_data})
-        print("Debug information saved to debug.txt.")
+    if subdomains_crtsh or subdomains_certspotter:
+        save_to_file('all_subdomains.json', subdomains_crtsh, subdomains_certspotter)
+        logging.info(f"Subdomains found for {args.domain} have been saved to all_subdomains.json\n")
+        
+        combined_cleaned_subdomains = combine_and_clean_subdomains(subdomains_crtsh, subdomains_certspotter)
+        
+        logging.info("Starting liveliness checks...\n")
+        
+        tasks = [check_liveliness(subdomain, args.ports, args.rate_limit, args.proxy, args.user_agent) for subdomain in combined_cleaned_subdomains]
+        
+        results = await asyncio.gather(*tasks)
+        
+        # Flatten the list of results
+        flat_results = [item for sublist in results for item in sublist]
+        
+        # Filter out unreachable hosts unless --debug is specified
+        if not args.debug:
+            flat_results = [result for result in flat_results if result['status'] == 'live']
+        
+        # Save the liveliness check results to a separate JSON file
+        with open('liveliness_check_results.json', 'w') as f:
+            json.dump(flat_results, f, indent=4)
+        
+        logging.info("Liveliness check results have been saved to liveliness_check_results.json")
+        
+    else:
+        logging.warning(f"No subdomains found for {args.domain}.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='Enumerate subdomains and endpoints. Some options are only allowed during the liveliness check.'
-    )
-    parser.add_argument('-d', '--domain', required=True, help='Target domain to enumerate')
-    parser.add_argument('-o', '--output', required=True, help='Output file name')
-    parser.add_argument('-f', '--format', required=True, choices=['1', '2'], help='Output format: 1 or 2')
-    parser.add_argument('--debug', action='store_true', help='Enable debug mode to log detailed information')
-    parser.add_argument('--user-agent', default='Mozilla/5.0', help='Custom User-Agent string for requests')
-    parser.add_argument('--live-check', action='store_true', help='Perform a liveliness check on found targets. Requires --port and --proxy options.')
-    parser.add_argument('--proxy', help='Proxy to use for HTTP requests (e.g., http://127.0.0.1:8080)')
-    parser.add_argument('--port', type=str, help='Additional ports to check (comma-separated)', default='')
-
-    args = parser.parse_args()
-    additional_ports = list(map(int, args.port.split(','))) if args.port else []
-    main(args.domain, args.output, args.format, args.debug, args.user_agent, args.live_check, args.proxy, additional_ports)
+    asyncio.run(main())

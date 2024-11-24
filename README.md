@@ -33,7 +33,7 @@ The script utilizes the following services for certificate enumeration:
    pip install -r requirements.txt
 ```
 
-Set up API keys: Update the API_KEYS dictionary in the script with your API keys for the services used.
+Set up API keys: Update the .env with your API keys for the services used.
 
 ## Usage
 Run the script with the following command:
