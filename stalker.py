@@ -136,7 +136,7 @@ async def main():
         
         # Filter out unreachable hosts unless --debug is specified
         if not args.debug:
-            flat_results = [result for result in flat_results if result['status'] == 'live']
+            flat_results = [result for result in flat_results if 'could not be reached' not in result['status']]
         
         # Save the liveliness check results to a separate JSON file
         with open('liveliness_check_results.json', 'w') as f:
