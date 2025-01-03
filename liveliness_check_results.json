@@ -1,77 +1,942 @@
 [
     {
-        "url": "http://printwsvc.rhul.ac.uk:80",
+        "url": "http://messenger.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://messenger.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://payment.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://payment.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ab-platform-api.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ab-platform-api.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-2.aws.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-2.aws.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://pm-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://pm-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://icl-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://icl-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ppw.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ppw.euce1.indriverapp.com:80",
         "status": "live",
         "status_code": 200
     },
     {
-        "url": "http://insights.pp.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://internal.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
     },
     {
-        "url": "http://searg.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://internal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://server6.pp.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://terra.aws.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
     },
     {
-        "url": "http://www.studentcentral.london:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://terra.aws.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://nagios.pp.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://terra-akamai.aws.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
     },
     {
-        "url": "http://www.mklab.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://terra-akamai.aws.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://www.newpolcom.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://terra-6.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
     },
     {
-        "url": "http://ma.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://terra-6.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://ganglia.pp.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://image-storage.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://personal.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://helpmeow.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://studentcentral.london:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://mnlth-lb-01-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
     },
     {
-        "url": "http://mklab.ph.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://mnlth-lb-01-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     },
     {
-        "url": "http://insights-twiki.pp.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://intercity-classified.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
     },
     {
-        "url": "http://www.ma.rhul.ac.uk:80",
-        "status": "live",
-        "status_code": 200
+        "url": "http://intercity-classified.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://es-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://es-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://aar-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://aar-cf.euce1.indriverapp.com:80",
+        "status": "status code 403",
+        "status_code": 403
+    },
+    {
+        "url": "http://ps-cf.fr1.baremetal.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ps-cf.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ic3-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ic3-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://idp-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://idp-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://lbe-fr1.indriverapp.com:80",
+        "status": "status code 404",
+        "status_code": 404
+    },
+    {
+        "url": "http://sur.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://webview.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://webview.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-4.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-4.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://nginx-s3-gateway.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-5.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-5.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-akamai.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-akamai.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://super-services.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://super-services.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://mnlth-lb-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://mnlth-lb-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://truck-api.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://pa-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://pa-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://truck-api.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://truck-api.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://balance-api.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://balance-api.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://cargo.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://sur-cf.fr1.baremetal.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://sur-cf.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://geo2dev.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://geo2dev.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://static.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://static.indriverapp.com:80",
+        "status": "status code 404",
+        "status_code": 404
+    },
+    {
+        "url": "http://latra.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://latra.indriverapp.com:80",
+        "status": "status code 403",
+        "status_code": 403
+    },
+    {
+        "url": "http://truck.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://truck.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://pp-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://pp-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://dr-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://dr-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://page-service.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://frontend-safety-management-system.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://deal-history.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://deal-history.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://intercity-3.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://intercity-3.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-3.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-3.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://fic-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://fic-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://chat.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://chat.eu-east-1.indriverapp.com:80",
+        "status": "status code 404",
+        "status_code": 404
+    },
+    {
+        "url": "http://facechecker-api.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://facechecker-api.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://cht-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://cht-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://gvt-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://gvt-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://review-api.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://auth.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://auth.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-2.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-2.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://balance-api-front.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://balance-api-front.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://truck-admin.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://deal-history.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://truck-verification.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://truck-verification.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://daw-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://daw-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://cas.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://cas.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://sc-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://sc-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://tax-documents.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://tax-documents.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://review-api.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://review-api.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://watchdocs.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://watchdocs.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://fch-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://fch-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ga-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ga-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://pay-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://pay-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ts-cf.fr1.baremetal.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ts-cf.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://facechecker.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://facechecker.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://msg-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://msg-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://no.euce1.indriverapp.com:80",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://is-cf.fr1.baremetal.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://is-cf.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://rp-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://rp-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://id-doc-checker.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://id-doc-checker.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://bla-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://bla-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://cas-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://cas-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-1.aws.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-1.aws.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://pot-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://pot-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://router.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ra-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ra-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://truck-verification.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://geo2dev.fr1.baremetal.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://geo2dev.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 308",
+        "status_code": 308
+    },
+    {
+        "url": "http://terra-kz01.indriverapp.com:80",
+        "status": "status code 403",
+        "status_code": 403
+    },
+    {
+        "url": "http://baf-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://baf-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://super-services.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://super-services-webview.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-7.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-7.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ath-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://ath-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://nb-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://nb-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://frontend-safety-management-system.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://frontend-safety-management-system.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://nha-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://nha-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://bdu-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://bdu-cf.euce1.indriverapp.com:80",
+        "status": "status code 404",
+        "status_code": 404
+    },
+    {
+        "url": "http://id-doc-checker.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://doc-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://doc-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://external-sender.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://external-sender.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://facechecker-api.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-mtn.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-mtn.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://tax-documents.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://ts.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://nbb-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://nbb-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://file-storage-front.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://careers.fr1.baremetal.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://truck-admin.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://truck-admin.eu-east-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://file-storage-front.eu-east-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://file-storage-front.eu-east-1.indriverapp.com:80",
+        "status": "status code 403",
+        "status_code": 403
+    },
+    {
+        "url": "http://nbu-cf.euce1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://nbu-cf.euce1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
+    },
+    {
+        "url": "http://terra-1.indriverapp.com:443",
+        "status": "status code 400",
+        "status_code": 400
+    },
+    {
+        "url": "http://terra-1.indriverapp.com:80",
+        "status": "status code 301",
+        "status_code": 301
     }
 ]
