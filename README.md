@@ -2,7 +2,7 @@
 
 ## Overview
 
-This script is designed for enumerating end point using certificates associated with a specified domain. It leverages various APIs to gather information about certificates, including subdomains and endpoints. 
+Collection of script for enumerating end point using certificates associated with a specified domain. It leverages various APIs to gather information about certificates, including subdomains and endpoints. 
 
 ## Features
 
