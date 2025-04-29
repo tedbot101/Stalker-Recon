@@ -72,7 +72,7 @@ def save_to_file(filename, crtsh_subdomains, certspotter_subdomains):
 
 async def check_liveliness(subdomain, ports, rate_limit, proxy, user_agent):
     results = []
-    async with httpx.AsyncClient(proxies=proxy, headers={"User-Agent": user_agent}) as client:
+    async with httpx.AsyncClient( headers={"User-Agent": user_agent}) as client:
         for port in ports:
             url = f"http://{subdomain}:{port}"
             try:
@@ -91,7 +91,9 @@ async def check_liveliness(subdomain, ports, rate_limit, proxy, user_agent):
 
 async def main():
     parser = argparse.ArgumentParser(description="Enumerate subdomains using crt.sh and CertSpotter")
-    parser.add_argument('-d', '--domain', required=True, help='Domain to enumerate subdomains for')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-d', '--domain', help='Domain to enumerate subdomains for')
+    group.add_argument('-D', '--domain-file', help='File with list of domains to enumerate')
     parser.add_argument('--ports', nargs='+', type=int, default=[8443, 443, 80], 
                         help='Ports to check for liveliness (default: 8443, 443, 80)')
     parser.add_argument('--rate-limit', type=float, default=3.0, 
@@ -102,37 +104,42 @@ async def main():
                         default="Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/113.0", 
                         help='User-Agent to use for liveliness checks (default: Mozilla/5.0...)')
     parser.add_argument('--debug', action='store_true', help='Save all results including unreachable hosts')
-    
+
     args = parser.parse_args()
 
-    subdomains_crtsh = get_subdomains_crtsh(args.domain)
-    subdomains_certspotter = get_subdomains_certspotter(args.domain)
-
-    if subdomains_crtsh or subdomains_certspotter:
-        save_to_file('all_subdomains.json', subdomains_crtsh, subdomains_certspotter)
-        print(f"Subdomains found for {args.domain} have been saved to all_subdomains.json")
-        
-        combined_cleaned_subdomains = combine_and_clean_subdomains(subdomains_crtsh, subdomains_certspotter)
-        
-        tasks = [check_liveliness(subdomain, args.ports, args.rate_limit, args.proxy, args.user_agent) for subdomain in combined_cleaned_subdomains]
-        
-        results = await asyncio.gather(*tasks)
-        
-        # Flatten the list of results
-        flat_results = [item for sublist in results for item in sublist]
-        
-        # Filter out unreachable hosts unless --debug is specified
-        if not args.debug:
-            flat_results = [result for result in flat_results if result['status'] == 'live']
-        
-        # Save the liveliness check results to a separate JSON file
-        with open('liveliness_check_results.json', 'w') as f:
-            json.dump(flat_results, f, indent=4)
-        
-        print("Liveliness check results have been saved to liveliness_check_results.json")
-        
+    if args.domain_file:
+        with open(args.domain_file, 'r') as f:
+            domains = [line.strip() for line in f if line.strip()]
     else:
-        print(f"No subdomains found for {args.domain}.")
+        domains = [args.domain]
+
+    for domain in domains:
+        print(f"\n=== Enumerating subdomains for {domain} ===")
+        subdomains_crtsh = get_subdomains_crtsh(domain)
+        subdomains_certspotter = get_subdomains_certspotter(domain)
+
+        if subdomains_crtsh or subdomains_certspotter:
+            filename = f'{domain}_all_subdomains.json'
+            save_to_file(filename, subdomains_crtsh, subdomains_certspotter)
+            print(f"Subdomains saved to {filename}")
+
+            combined_cleaned_subdomains = combine_and_clean_subdomains(subdomains_crtsh, subdomains_certspotter)
+
+            tasks = [check_liveliness(subdomain, args.ports, args.rate_limit, args.proxy, args.user_agent)
+                     for subdomain in combined_cleaned_subdomains]
+            results = await asyncio.gather(*tasks)
+
+            flat_results = [item for sublist in results for item in sublist]
+
+            if not args.debug:
+                flat_results = [result for result in flat_results if result['status'] == 'live']
+
+            result_filename = f'{domain}_liveliness_check_results.json'
+            with open(result_filename, 'w') as f:
+                json.dump(flat_results, f, indent=4)
+            print(f"Liveliness results saved to {result_filename}")
+        else:
+            print(f"No subdomains found for {domain}.")
 
 if __name__ == "__main__":
     asyncio.run(main())
